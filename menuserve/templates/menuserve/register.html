@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Sign Up{% endblock%}
+
+{% block navbar %}
+<a class="nav-item nav-link" href="{% url 'welcome' %}">Home</a>
+{% endblock %}
+
+{% block greeting %}Sign Up to MacDonald's !{% endblock %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <div class="card">
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <br>
+            <button type="submit" id="signupafterfill" class="btn btn-lg btn-block btn-warning">Sign up</button><br>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+{% endblock %}

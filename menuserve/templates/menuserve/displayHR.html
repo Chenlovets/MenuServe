@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %} McDonald's HR Management{% endblock%}
+{% block navbar %}
+<a class="nav-item nav-link" href="{% url 'manager' %}">Home</a>
+<a class="nav-item nav-link" href="{% url 'editMenu' %}">Menu Management</a>
+<a class="nav-item nav-link" href="{% url 'processOrder' %}">Process Order</a>
+<a class="nav-item nav-link active" href="{% url 'hr' %}">HR Management<span class="sr-only">(current)</span></a>        {% endblock %}
+{% block greeting %} Click to Edit or Delete! {% endblock %}
+{% block content %}   
+
+<div class="container mb-4">
+  {% for store in yourStore %}
+  <form action="{% url 'editOrDelete' %}" method='post'>
+    {% csrf_token %}
+    <input type="hidden" name="currentUser" value="{{user.username}}">
+    <input type="hidden" name="hidden" value="{{store.pk}}">
+    <div class="dropdown dropright">
+      <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Store - {{store.location}}</button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button class="dropdown-item" type="submit" name="action" value="editStore">Edit Info</button>
+        <button class="dropdown-item" type="submit" name="action" value="deleteStore">Delete Store</button>
+      </div>
+    </div>
+  </form>
+  <hr>
+
+  <div class="row mb-1">
+    <div class="col-6">
+      <h5>Managers:</h5>
+
+      {%for key,value in managers_dict.items%}
+      {% if key == store.pk %} 
+      {%for manager in value%}
+      <form action="{% url 'editOrDelete' %}" method='post'>
+        {% csrf_token %}
+        <input type="hidden" name="currentUser" value="{{user.username}}">
+        <input type="hidden" name="hidden" value="{{store.pk}}">
+        <input type="hidden" name="hidden2" value="{{manager.pk}}">
+
+        <div class="dropdown dropright mb-2">
+          <button class="btn btn-block btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{manager.user.first_name}} {{manager.user.last_name}}</button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" type="submit" name="action" value="editManager">Edit Info</button>
+            <button class="dropdown-item" type="submit" name="action" value="deleteManager">Delete</button>
+          </div>
+        </div>
+      </form>
+      {% endfor %}
+      {% endif %}
+      {% endfor %}
+
+    </div>
+    <div class="col-6">
+      <h5>Employees:</h5>
+      <div class="list-group">
+        {%for key,value in employees_dict.items%}
+        {% if key == store.pk %} 
+        {%for employee in value%}
+        <form action="{% url 'editOrDelete' %}" method='post'>
+          {% csrf_token %}
+          <input type="hidden" name="currentUser" value="{{user.username}}">
+          <input type="hidden" name="hidden3" value="{{employee.pk}}">
+          <input type="hidden" name="hidden" value="{{store.pk}}">
+          <div class="dropdown dropright mb-2">
+            <button class="btn btn-block btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{employee.user.first_name}} {{employee.user.last_name}}</button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="dropdown-item" type="submit" name="action" value="editEmployee">Edit Info</button>
+              <button class="dropdown-item" type="submit" name="action" value="deleteEmployee">Delete</button>
+            </div>
+          </div>
+        </form>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <br>
+  {% endfor %}
+  <br>
+  
+    <form action="{% url 'editOrDelete' %}" method='post'>
+          {% csrf_token %}
+          <input type="hidden" name="currentUser" value="{{user.username}}">
+          <div class="row">
+      <div class="col-sm-12  col-md-12">
+        <button type="submit" class="btn btn-lg btn-secondary btn-block" name="action" value="backToHR">Back</button>
+      </div>
+      
+</div>
+</form>
+</div><br>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %} McDonald's Empoyee {% endblock%}
+
+{% block navbar %}
+
+<a class="nav-item nav-link active" href="{% url 'welcome' %}">Home<span class="sr-only">(current)</span></a>
+<a class="nav-item nav-link" href="{% url 'editMenu' %}">Menu Management</a>
+<a class="nav-item nav-link" href="{% url 'processOrder' %}">Process Order</a>
+<a class="nav-item nav-link" href="{% url 'hr' %}">HR Management</a>
+{% endblock %}
+
+
+{% block greeting %}Hi there, {{user.username}}!{% endblock %}
+{% block content %}
+
+<div class="container mb-4">
+
+      <form action="{% url 'processOrder' %}" method='post'>
+        {% csrf_token %}
+        <button name="input" class="btn btn-lg btn-block btn-warning" type="submit" value="processOrder">Process Order</button>
+      </form>
+
+
+</div><br>
+
+{% endblock %}

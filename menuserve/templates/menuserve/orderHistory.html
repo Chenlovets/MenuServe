@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %} McDonald's Order History {% endblock%}
+{% block navbar %}
+<a class="nav-item nav-link" href="{% url 'welcome' %}">Home</a>
+{% endblock %}
+{% block greeting %} Your Order History : {% endblock %}
+{% block content %}
+
+
+<div class="container mb-4">
+  <form action="{% url 'viewHistory' %}" method='post'>
+    {% csrf_token %}
+    <input type="hidden" name="input" value="{{customer}}"> 
+    <div class="dropdown">
+      <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{location}} </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button class="dropdown-item" type="submit" name="location" value="All Stores">All Stores</button>
+        {% for store in stores %}
+        <button class="dropdown-item" type="submit" name="location" value="{{store.location}}">{{store.location}}</button>
+        {% endfor %}
+      </div>
+    </div>
+  </form><br>
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Order Number</th>
+              <th scope="col" class="text-center">Items</th>
+              <th scope="col">Total</th>
+              <th scope="col" class="text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td class="col-md-4 text-center">
+                {% for item in order.items.all %}
+                {% for key, value in records.items %}
+                {% if key == order.pk %} 
+                {% for key, q in value.items %}
+                {% if key == item.pk %}  
+                {{ item.item_name}} x {{q}}<br>
+                {% endif %}   
+                {% endfor %}
+                {% endif %}
+                {% endfor %}   
+                {% endfor %}       
+              </td>
+              <td class="col-md-2">${{order.total}}</td>
+              <td class="col-md-2 text-center">
+                <button type="button" class="btn btn-sm btn-secondary" disabled>{{order.status}}</button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <hr>
+      </div>
+    </div>
+
+    <div class="col mb-2">
+      <form action="{% url 'home' %}" method='post'>
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-sm-12  col-md-6">
+            <button class="btn btn-lg btn-block btn-secondary" type="submit" name="action" value="backToHome">Back</button>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <button class="btn btn-lg btn-block btn-warning" type="submit" name="action" value="close">Close</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+<br>
+
+{% endblock %}

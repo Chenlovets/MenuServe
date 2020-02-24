@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}McDonald's Customer{% endblock%}
+
+{% block navbar %}
+<a class="nav-item nav-link active" href="{% url 'welcome' %}">Home<span class="sr-only">(current)</span></a>
+{% endblock %}
+
+{% block greeting %} Hi there, {{user.username}}! {% endblock %}
+
+{% block content %}
+<div class="container mb-4">
+
+	<div class="row">
+		<div class="col-sm-12  col-md-6">
+			<form action = "{% url 'viewHistory' %}" method='post'>
+				{% csrf_token %}
+				<button class="btn btn-lg btn-block btn-secondary" type="submit" name="input" value="{{ user.username }}">View Order History</button>
+			</form>
+		</div>
+		<div class="col-sm-12 col-md-6">
+			<form action = "{% url 'viewMenu' %}" method='post'>
+				{% csrf_token %}
+				<button name="input" id="OrderNow"class="btn button1 btn-lg btn-block btn-warning" type="submit" value="{{ user.username }}"> Order Now!</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

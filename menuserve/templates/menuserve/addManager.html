@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %} McDonald's Add Manager {% endblock%}
+{% block navbar %}
+<a class="nav-item nav-link" href="{% url 'manager' %}">Home</a>
+<a class="nav-item nav-link" href="{% url 'editMenu' %}">Menu Management</a>
+<a class="nav-item nav-link" href="{% url 'processOrder' %}">Process Order</a>
+<a class="nav-item nav-link active" href="{% url 'hr' %}">HR Management<span class="sr-only">(current)</span></a>
+{% endblock %}
+{% block greeting %} Assign a new manager! {% endblock %}
+{% block content %}
+
+<div class="container mb-4">
+ <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group mb-2">
+    <label for="whichuser">User</label>
+    <select class="custom-select mr-sm-2" name="user">
+      <option disabled selected>Which user to assign...</option>
+      {% for user in users %}
+      <option value="{{user.pk}}">{{user.username}}: {{user.first_name}} {{user.last_name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <br>
+  <div class="form-group mb-2">
+    <label for="workat">Store</label>
+    <select class="custom-select mr-sm-2" name="workat">
+      <option disabled selected> Which store to assign...</option>
+      {% for store in stores %}
+      <option value="{{store.pk}}">{{store.location}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-sm-12  col-md-6">
+  <button type="submit" class="btn btn-lg btn-secondary btn-block" name="input" value="backToHR">Back</button>
+</div>
+<div class="col-sm-12  col-md-6">
+    <button type="submit" class="btn btn-lg btn-warning btn-block" name="input" value="create_manager">Confirm</button>
+    </div>
+</div>
+  </form>
+
+</div><br>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+
+
+a:link {
+  color: grey;
+}
+
+h2 {
+  font-family:Snell Roundhand;
+  font-size:3vw;
+
+}
+
+.plusbutton {
+
+  border: none;
+  padding: 0;
+  background: none;
+  outline: none;
+}
+
+.plusbutton:focus { 
+    outline: none; 
+}
+
+.minusbutton {
+
+  border: none;
+  padding: 0;
+  background: none;
+  outline: none;
+}
+
+.minusbutton:focus { 
+    outline: none; 
+}
+
+.divBottomLeft {
+  float: left;
+  width:100%;
+}
+
+.divLeft {
+  float: left;
+  width:75%;
+}
+
+.divRight {
+  float: right;
+  width:22%;
+}
+
+.full-width-image img {
+  height: 500px;
+  width: 100%;
+}
+
+.carousel {
+  width:100%;
+  height:600px;
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: 600px;
+}
+
+.card-deck {
+  width: 100%;
+}
+
+.card-img-top {
+
+  height: 20vh;
+  object-fit: cover;
+}
+
+
+
+

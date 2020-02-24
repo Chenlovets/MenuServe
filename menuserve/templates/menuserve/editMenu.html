@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %} McDonald's Menu Management {% endblock%}
+{% block navbar %}
+<a class="nav-item nav-link" href="{% url 'manager' %}">Home</a>
+<a class="nav-item nav-link active" href="{% url 'editMenu' %}">Menu Management<span class="sr-only">(current)</span></a>
+<a class="nav-item nav-link" href="{% url 'processOrder' %}">Process Order</a>
+<a class="nav-item nav-link" href="{% url 'hr' %}">HR Management</a>
+{% endblock %}
+{% block greeting %}Menu Management{% endblock %}
+{% block content %}
+
+<div class="container">
+
+  <form action="{% url 'addItem' %}" method='post'>
+    {% csrf_token %}
+    <h4>Burgers <button type="submit" id="AddItem" class="btn btn-warning btn-sm ml-2" name="category" value="Burgers">Add item</button> </h4> <hr>
+  </form>
+  <div class="card-deck">
+    <div class="row">
+      {% for item in items %}
+      {% if item.item_category == 'Burgers' %}
+      <div class="col-sm-3">
+        <div class="card h-90 mb-3">
+          <img class="card-img-top" src="{{ item.item_image.url }}" alt="{{ item.item_name }}">
+          <div class="card-body">
+            <h6 class="card-title">{{ item.item_name }}</h6>
+            <p class="card-text">${{ item.item_price }}</p>
+            <div class="span">
+
+              <form action="{% url 'editItem' %}" method='post'>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary btn-block mb-2" name="pk" value="{{ item.pk }}">Edit</button>
+              </form>
+
+              <form action="{% url 'deleteItem' %}" method='post'>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary btn-block" name="pk" value="{{ item.pk }}">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <!-- /.card-deck -->
+
+  <br>
+
+  <form action="{% url 'addItem' %}" method='post'>
+    {% csrf_token %}
+
+    <h4>Chicken & Sandwiches<button type="submit" class="btn btn-warning btn-sm ml-2" name="category" value="Chicken & Sandwiches">Add item</button> </h4> <hr>
+  </form>
+  <div class="card-deck">
+    <div class="row">
+
+      {% for item in items %}
+      {% if item.item_category == 'Chicken & Sandwiches' %}
+      <div class="col-sm-3">
+        <div class="card h-90 mb-3">
+          <img class="card-img-top" src="{{ item.item_image.url }}" alt="{{ item.item_name }}">
+          <div class="card-body">
+            <h6 class="card-title">{{ item.item_name }}</h6>
+            <p class="card-text">${{ item.item_price }}</p>
+
+            <div class="span">
+
+              <form action="{% url 'editItem' %}" method='post'>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary btn-block mb-2" name="pk" value="{{ item.pk }}">Edit</button>
+              </form>
+
+              <form action="{% url 'deleteItem' %}" method='post'>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary btn-block" name="pk" value="{{ item.pk }}">Delete</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <!-- /.card-deck -->
+
+  <br>
+
+  <form action="{% url 'addItem' %}" method='post'>
+    {% csrf_token %}
+
+    <h4>Snacks & Sides<button type="submit" class="btn btn-warning btn-sm ml-2" name="category" value="Snacks & Sides">Add item</button> </h4> <hr>
+  </form>
+  <div class="card-deck">
+    <div class="row">
+
+      {% for item in items %}
+      {% if item.item_category == 'Snacks & Sides' %}
+      <div class="col-sm-3">
+        <div class="card h-90 mb-3">
+          <img class="card-img-top" src="{{ item.item_image.url }}" alt="{{ item.item_name }}">
+          <div class="card-body">
+            <h6 class="card-title">{{ item.item_name }}</h6>
+            <p class="card-text">${{ item.item_price }}</p>
+
+            <div class="span">
+
+              <form action="{% url 'editItem' %}" method='post'>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary btn-block mb-2" name="pk" value="{{ item.pk }}">Edit</button>
+              </form>
+
+              <form action="{% url 'deleteItem' %}" method='post'>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary btn-block" name="pk" value="{{ item.pk }}">Delete</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <!-- /.card-deck -->
+
+  <br>
+  <form action="{% url 'addItem' %}" method='post'>
+    {% csrf_token %}
+
+    <h4>McCafé<button type="submit" class="btn btn-warning btn-sm ml-2" name="category" value="McCafé">Add item</button> </h4> <hr>
+  </form>
+  <div class="card-deck">
+    <div class="row">
+
+      {% for item in items %}
+      {% if item.item_category == 'McCafé' %}
+      <div class="col-sm-3">
+        <div class="card h-90 mb-3">
+          <img class="card-img-top" src="{{ item.item_image.url }}" alt="{{ item.item_name }}">
+          <div class="card-body">
+            <h6 class="card-title">{{ item.item_name }}</h6>
+            <p class="card-text">${{ item.item_price }}</p>
+
+            <div class="span">
+
+              <form action="{% url 'editItem' %}" method='post'>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary btn-block mb-2" name="pk" value="{{ item.pk }}">Edit</button>
+              </form>
+
+              <form action="{% url 'deleteItem' %}" method='post'>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary btn-block" name="pk" value="{{ item.pk }}">Delete</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <!-- /.card-deck -->
+  <br>
+  <div class="row">
+    <div class="col-sm-12  col-md-12">
+  <a href="{% url 'manager' %}" class="btn btn-lg btn-secondary btn-block active" role="button" aria-pressed="true">Back</a>
+</div>
+</div>
+</div>
+<!-- /.container -->
+<br>
+<br>
+
+{% endblock %}

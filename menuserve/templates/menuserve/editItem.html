@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} McDonald's Edit Menu {% endblock%}
+{% block navbar %}
+<a class="nav-item nav-link" href="{% url 'manager' %}">Home</a>
+<a class="nav-item nav-link active" href="{% url 'editMenu' %}">Menu Management<span class="sr-only">(current)</span></a>
+<a class="nav-item nav-link" href="{% url 'processOrder' %}">Process Order</a>
+<a class="nav-item nav-link" href="{% url 'hr' %}">HR Management</a>
+{% endblock %}
+
+{% block greeting %}Edit Menu {% endblock %}
+{% block content %}
+
+<div class="container mb-4">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <button type="submit" id="EditItemConfirm" class="btn btn-warning" name="pk" value="{{ item}}">Confirm</button>
+  </form>
+</div>
+<br>
+
+{% endblock %}

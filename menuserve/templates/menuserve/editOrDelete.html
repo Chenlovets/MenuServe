@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} McDonald's HR Management{% endblock%}
+{% block navbar %}
+<a class="nav-item nav-link" href="{% url 'manager' %}">Home</a>
+<a class="nav-item nav-link" href="{% url 'editMenu' %}">Menu Management</a>
+<a class="nav-item nav-link" href="{% url 'processOrder' %}">Process Order</a>
+<a class="nav-item nav-link active" href="{% url 'hr' %}">HR Management<span class="sr-only">(current)</span></a>
+{% endblock %}
+{% block greeting %} Update the info !{% endblock %}
+{% block content %}   
+
+<div class="container mb-4">
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="hidden" value="{{hidden}}">
+    <input type="hidden" name="hidden2" value="{{hidden2}}">
+    <input type="hidden" name="hidden3" value="{{hidden3}}">
+    <input type="hidden" name="currentUser" value="{{user.username}}">
+    {{ store|crispy }}
+    <button type="submit" class="btn btn-warning" name="action" value="{{action}}">Confirm</button>
+  </form>
+
+</div><br>
+
+{% endblock %}

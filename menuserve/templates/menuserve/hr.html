@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %} McDonald's HR {% endblock%}
+{% block navbar %}
+<a class="nav-item nav-link" href="{% url 'manager' %}">Home</a>
+<a class="nav-item nav-link" href="{% url 'editMenu' %}">Menu Management</a>
+<a class="nav-item nav-link" href="{% url 'processOrder' %}">Process Order</a>
+<a class="nav-item nav-link active" href="{% url 'hr' %}">HR Management<span class="sr-only">(current)</span></a>
+
+{% endblock %}
+{% block greeting %} Welcome to HR Management Page ! {% endblock %}
+{% block content %}
+
+<div class="container mb-4">
+
+  <div class="row">
+
+    <div class="col-sm-12  col-md-6">
+      <form action="{% url 'manageHR' %}" method='post'>
+        {% csrf_token %}
+        <input type="hidden" name="firstTime" value="yes">
+        <button type="button" class="btn btn-lg btn-block btn-warning dropdown-toggle" data-toggle="dropdown">Create</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button class="dropdown-item" type="submit" name="input" value="create_store">Store</button>
+          <button class="dropdown-item" type="submit" name="input" value="create_manager">Manager</button>
+          <button class="dropdown-item" type="submit" name="input" value="create_employee">Employee</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-sm-12 col-md-6">
+     <form action="{% url 'manageHR' %}" method='post'>
+      {% csrf_token %}
+      <input type="hidden" name="currentUser" value="{{user.username}}">
+      <button name="input" class="btn btn-lg btn-block btn-warning" type="submit" name="input" value="edit">Edit & Delete</button>
+    </form>
+  </div>
+
+</div> 
+
+</div><br>
+
+{% endblock %}

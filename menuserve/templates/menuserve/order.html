@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %} McDonald's Order{% endblock%}
+{% block navbar %}
+
+<a class="nav-item nav-link" href="{% url 'viewMenu' %}">Full Menu</a>
+
+{% endblock %}
+{% block greeting %} Your Order{% endblock %}
+{% block content %}
+
+<div class="container mb-4">
+
+  <div class="row mb-1">
+
+    <div class="col-6">
+      <form action="{% url 'viewOrder' %}" method='post'>
+        {% csrf_token %}
+        <input type="hidden" name="hidden" value="{{ order.pk }}">
+        <div class="dropdown">
+          <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{location}} </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for store in stores %}
+            <button class="dropdown-item" type="submit" name="location" value="{{store.location}}">{{store.location}}</button>
+            {% endfor %}
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-6 text-right">
+      <form action="{% url 'submitOrder' %}" name = "submitOrder" method='post'>
+        {% csrf_token %}
+        <input type="hidden" name="hidden_location" value="{{location}}">
+        <input type="hidden" name="hidden_order" value="{{ order.pk }}">
+        <button id="SubmitOrder" onclick = "submit('{{order.pk}}')" class="btn button1 btn-warning" type="submit">Submit Order</button>
+      </div>
+    </div>
+
+    <div class="row mb-1">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col-2"> </th>
+                <th scope="col-4">Product</th>
+                <th scope="col-2">Price</th>
+                <th scope="col-2" class="text-center">Quantity</th>
+                <th scope="col-2"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for item,quantity in quantities.items %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.item_name}}</td>
+                <td>${{ item.item_price }}</td>
+                <td>
+                  <input class="form-control" name="{{ item.pk }}" type="number" min="0" value="{{quantity}}" required>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </form>
+      <br>
+</div>
+</div>
+{% endblock %}

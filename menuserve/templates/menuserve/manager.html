@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}McDonald's Manager{% endblock%}
+
+{% block navbar %}
+<a class="nav-item nav-link" href="{% url 'welcome' %}">Home</a>
+<a class="nav-item nav-link" href="{% url 'editMenu' %}">Menu Management</a>
+<a class="nav-item nav-link" href="{% url 'processOrder' %}">Process Order</a>
+<a class="nav-item nav-link" href="{% url 'hr' %}">HR Management</a>
+{% endblock %}
+
+{% block greeting %} Hi there, {{user.username}}! {% endblock %}
+
+{% block content %}
+<div class="container mb-4">
+
+  <div class="row">
+
+    <div class="col-sm-12  col-md-4">
+      <form action="{% url 'editMenu' %}" method='post'>
+        {% csrf_token %}
+        <button name="input" id="EditMenu" class="btn btn-lg btn-block btn-warning" type="submit" value="editMenu">Edit Menu</button>
+      </form>
+    </div>
+
+    <div class="col-sm-12 col-md-4">
+      <form action="{% url 'processOrder' %}" method='post'>
+        {% csrf_token %}
+        <button name="input" class="btn btn-lg btn-block btn-warning" type="submit" value="processOrder">Process Order</button>
+      </form>
+    </div>
+
+    <div class="col-sm-12 col-md-4">
+      <form action="{% url 'hr' %}" method='post'>
+        {% csrf_token %}
+        <button name="input" class="btn btn-lg btn-block btn-warning" type="submit" value="hr">HR Management</button>
+      </form>
+    </div>
+
+  </div>
+
+</div><br>
+{% endblock %}
