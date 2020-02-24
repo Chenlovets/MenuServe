@@ -1,6 +1,6 @@
 # CMU-17637 Web Application Development
 
-A web application for a chain of restaurants where customers place orders, staff fulfil orders and managers coordinate menu and supervise personnel. 
+A web application desinged for a chain of restaurants where customers place orders, staff fulfil orders and managers coordinate menu and supervise personnel. 
 
 ### NOTE:
 
